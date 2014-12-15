@@ -1,16 +1,22 @@
 ZbarLight
 =========
 
-``zbarlight`` is a simple wrapper for zbar library compatible with Python 2 and Python 3.
-For now, it only allows to read QR code but contributions, suggestions and pull requests are welcome.
+``zbarlight`` is a simple wrapper for zbar library compatible with Python 2 and
+Python 3.  For now, it only allows to read QR code but contributions,
+suggestions and pull requests are welcome.
 
 ``zbarlight`` is hosted on Github at <https://github.com/Polyconseil/zbarlight/>.
 
 Installation
 ============
 
-You need to install ZBar Bar Code Reader <http://zbar.sourceforge.net/> and its header to use ``zbarlight`` (``libzbar0`` and ``libzbar-dev`` on Debian),
-then you should use ``pip``, or ``setuptools`` to install the ``zbarlight`` wrapper.
+You need to install ZBar Bar Code Reader <http://zbar.sourceforge.net/> and its
+header to use ``zbarlight``:
+
+* on Debian, ``apt-get install libzbar0 libzbar-dev``
+* on Mac OS X, ``brew install zbar``
+
+then you should use ``pip`` or ``setuptools`` to install the ``zbarlight`` wrapper.
 
 How to use ZbarLight
 ====================
