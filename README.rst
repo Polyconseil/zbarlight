@@ -13,8 +13,8 @@ Installation
 
 You need to install ZBar Bar Code Reader <http://zbar.sourceforge.net/> and its headers to use ``zbarlight``:
 
- - on Debian, ``apt-get install libzbar0 libzbar-dev``
- - on Mac OS X, ``brew install zbar``
+- on Debian, ``apt-get install libzbar0 libzbar-dev``
+- on Mac OS X, ``brew install zbar``
 
 Then you should use ``pip`` or ``setuptools`` to install the ``zbarlight`` wrapper.
 
