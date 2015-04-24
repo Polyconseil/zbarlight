@@ -64,6 +64,7 @@ setup(
     setup_requires=[
         'setuptools',
     ],
+    install_requires=REQUIREMENTS,
     tests_require=REQUIREMENTS + [
         'docutils',
         'Sphinx',

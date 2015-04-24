@@ -11,6 +11,13 @@ Reference
     :return: The QR code value or None
 
 
+.. py:function:: code_scanner(symbology, image)
+
+    Get *kind* code from a PIL Image
+
+    :param str symbology: Symbology to search
+    :param: PIL Image to scan
+
 .. TODO find a better way to handle type validation
 .. seealso:: Python types
 

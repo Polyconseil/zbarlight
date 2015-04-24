@@ -21,6 +21,24 @@ Then you should use ``pip`` or ``setuptools`` to install the ``zbarlight`` wrapp
 How To use ZbarLight
 ====================
 
+*The new way:*
+
+.. code-block:: python
+
+    from PIL import Image
+    import zbarlight
+
+    file_path = './tests/fixtures/one_qr_code.png'
+    with open(file_path, 'rb') as image_file:
+        image = Image.open(image_file)
+        image.load()
+
+    code = zbarlight.code_scanner('qr', image)
+    print('QR code: %s' % code.decode())
+
+
+*The deprecated view:*
+
 .. code-block:: python
 
     from PIL import Image
