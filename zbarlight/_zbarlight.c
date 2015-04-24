@@ -12,7 +12,8 @@
 #endif
 
 /* Extract QR code from raw image (using zbar) */
-static char* zbar_qr_code_scanner(
+static char** _zbar_code_scanner(
+    const char *config_str,
     const void *raw_image_data,
     unsigned long raw_image_data_length,
     unsigned int width,
@@ -20,10 +21,10 @@ static char* zbar_qr_code_scanner(
 ) {
     int decoded = -2;
     int format = *(int *) "Y800";
-    char *data = NULL;
+    char **data = NULL;
 
     zbar_image_scanner_t *scanner = zbar_image_scanner_create();
-    zbar_image_scanner_parse_config(scanner, "qr.enable");
+    zbar_image_scanner_parse_config(scanner, config_str);
 
     zbar_image_t *image = zbar_image_create();
     zbar_image_set_format(image, format);
@@ -31,14 +32,19 @@ static char* zbar_qr_code_scanner(
     zbar_image_set_data(image, raw_image_data, raw_image_data_length, NULL);
 
     decoded = zbar_scan_image(scanner, image);
-    if (decoded == 1) {
+    if (decoded > 0) {
         const zbar_symbol_t *symbol = zbar_image_first_symbol(image);
-        unsigned int data_length = zbar_symbol_get_data_length(symbol);
-        data = malloc(data_length + 1);
-        if (data) {
-            strncpy(data, zbar_symbol_get_data(symbol), data_length);
-            data[data_length] = '\0';
-        }
+        data = calloc(decoded + 1, sizeof(char*));
+
+        for(int i=0; i < decoded; i++) {
+            unsigned int item_length = zbar_symbol_get_data_length(symbol);
+            data[i] = calloc(item_length + 1, sizeof(char));
+            if (data[i]) {
+                strncpy(data[i], zbar_symbol_get_data(symbol), item_length);
+                data[i][item_length] = '\0';
+            }
+            symbol = zbar_symbol_next(symbol);
+        } while(symbol != NULL);
     }
 
     zbar_image_destroy(image);
@@ -46,27 +52,33 @@ static char* zbar_qr_code_scanner(
     return data;
 }
 
-/* Python wrapper for zbar_qr_code_scanner() */
-static PyObject* qr_code_scanner(PyObject *self, PyObject *args) {
+/* Python wrapper for _zbar_code_scanner() */
+static PyObject* zbar_code_scanner(PyObject *self, PyObject *args) {
     PyObject *python_image = NULL;
+    char *config_str = NULL;
     char *raw_image_data = NULL;
     Py_ssize_t raw_image_data_length = 0;
     unsigned int width = 0;
     unsigned int height = 0;
-    char *result = NULL;
+    char **result = NULL;
     PyObject *data = NULL;
 
-    if (!PyArg_ParseTuple(args, "SII", &python_image, &width, &height)) {
+    if (!PyArg_ParseTuple(args, "SSII", &config_str, &python_image, &width, &height)) {
         return NULL;
     }
     PyBytes_AsStringAndSize(python_image, &raw_image_data, &raw_image_data_length);
 
-    result = zbar_qr_code_scanner(raw_image_data, raw_image_data_length, width, height);
+    result = _zbar_code_scanner(config_str, raw_image_data, raw_image_data_length, width, height);
     if (result == NULL) {
         Py_RETURN_NONE;
     }
 
-    data = PY_BYTES_FROM_STRING(result);
+    data = PyList_New(0);
+    for(int i=0; result[i] != NULL; i++) {
+        PyObject *item = PY_BYTES_FROM_STRING(result[i]);
+        PyList_Append(data, item);
+        free(result[i]);
+    }
     free(result);
     return data;
 }
@@ -86,7 +98,7 @@ static PyObject* version(PyObject *self, PyObject *args) {
 /* Module initialization */
 static PyMethodDef zbarlight_functions[] = {
     { "version", version, METH_VARARGS, NULL},
-    { "qr_code_scanner", qr_code_scanner, METH_VARARGS, NULL},
+    { "zbar_code_scanner", zbar_code_scanner, METH_VARARGS, NULL},
     { NULL }
 };
 
