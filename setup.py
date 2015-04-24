@@ -1,26 +1,42 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import, division, print_function, unicode_literals
+import io
 import os
 import os.path
+import re
 
 from setuptools import setup, find_packages, Extension
 
-
 PACKAGE = 'zbarlight'
 
-here = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(here, 'VERSION')) as version_file:
-    VERSION = version_file.read().strip()
-with open(os.path.join(here, 'README.rst')) as readme_file:
-    README = readme_file.read()
-with open(os.path.join(here, 'requirements-dev.txt')) as requirement_file:
-    DEV_REQUIREMENTS = requirement_file.read().splitlines()
+
+def _open(*file_path):
+    here = os.path.abspath(os.path.dirname(__file__))
+    return io.open(os.path.join(here, *file_path), 'r', encoding='utf-8')
+
+
+def get_version(package):
+    version_pattern = re.compile(r"^__version__ = [\"']([\w_.-]+)[\"']$", re.MULTILINE)
+    with _open(*(package.split('.') + ['__init__.py'])) as version_file:
+        matched = version_pattern.search(version_file.read())
+    return matched.groups()[0]
+
+
+def get_long_description():
+    with _open('README.rst') as readme_file:
+        return readme_file.read()
+
+
+REQUIREMENTS = [
+    'Pillow',
+]
 
 setup(
     name=PACKAGE,
-    version=VERSION,
+    version=get_version(PACKAGE),
     description="A simple zbar wrapper",
-    long_description=README,
+    long_description=get_long_description(),
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
@@ -41,13 +57,17 @@ setup(
     license='BSD',
     packages=find_packages(exclude=['docs']),
     ext_modules=[
-        Extension('zbarlight', ['zbarlight.c'], libraries=['zbar']),
+        Extension(str('zbarlight._zbarlight'), [str('zbarlight/_zbarlight.c')], libraries=['zbar']),
     ],
     include_package_data=True,
     zip_safe=False,
     setup_requires=[
         'setuptools',
     ],
-    tests_require=DEV_REQUIREMENTS,
+    tests_require=REQUIREMENTS + [
+        'docutils',
+        'Sphinx',
+        'sphinx_rtd_theme',
+    ],
     test_suite='tests'
 )

@@ -3,6 +3,4 @@ recursive-include tests *.py *.png
 include ChangeLog.rst
 include LICENSE
 include README.rst
-include VERSION
 include requirements-dev.txt
-include zbarlight.c

@@ -8,7 +8,7 @@
 #define PY_INIT_FCT() PyModule_Create(&zbarlight_moduledef)
 #else
 #define PY_BYTES_FROM_STRING(result) PyString_FromString(result)
-#define PY_INIT_FCT() Py_InitModule("zbarlight", zbarlight_functions)
+#define PY_INIT_FCT() Py_InitModule("_zbarlight", zbarlight_functions)
 #endif
 
 /* Extract QR code from raw image (using zbar) */
@@ -93,17 +93,17 @@ static PyMethodDef zbarlight_functions[] = {
 #if PY_MAJOR_VERSION >= 3
 static struct PyModuleDef zbarlight_moduledef = {
     PyModuleDef_HEAD_INIT,
-    "zbarlight",
+    "_zbarlight",
     NULL,
     -1,
     zbarlight_functions,
 };
 #endif
 
-PyObject* PyInit_zbarlight(void) { /* Python 3 way */
+PyObject* PyInit__zbarlight(void) { /* Python 3 way */
     return PY_INIT_FCT();
 }
 
-void initzbarlight(void) { /* Python 2 way */
-    PyInit_zbarlight();
+void init_zbarlight(void) { /* Python 2 way */
+    PyInit__zbarlight();
 }

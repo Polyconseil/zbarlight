@@ -9,7 +9,6 @@ Reference
     :param int width: Image width
     :param int height: Image height
     :return: The QR code value or None
-    :rtype: bytes or None
 
 
 .. TODO find a better way to handle type validation

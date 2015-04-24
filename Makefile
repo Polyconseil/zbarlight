@@ -1,11 +1,11 @@
 .PHONY: test docs
 
 update:
-	pip install -r requirements-dev.txt
+	pip install -e .
 
 clean:
-	find . "(" -name 'zbarlight*.so' -or -name '*.egg' -or -name '*.pyc' -or -name '*.pyo' ")" -delete
-	find -type d "(" -name build -or -name __pycache__ ")" -delete
+	find zbarlight "(" -name 'zbarlight*.so' -or -name '*.egg' -or -name '*.pyc' -or -name '*.pyo' ")" -delete
+	find zbarlight -type d "(" -name build -or -name __pycache__ ")" -exec rm -r {} \;
 
 docs:
 	python setup.py build_sphinx
