@@ -55,7 +55,7 @@ setup(
     author_email='opensource+%s@polyconseil.fr' % PACKAGE,
     url='https://github.com/Polyconseil/%s/' % PACKAGE,
     license='BSD',
-    packages=find_packages(exclude=['docs']),
+    packages=find_packages(exclude=['docs', 'tests']),
     ext_modules=[
         Extension(str('zbarlight._zbarlight'), [str('zbarlight/_zbarlight.c')], libraries=['zbar']),
     ],
