@@ -34,7 +34,7 @@ How To use ZbarLight
         image.load()
 
     code = zbarlight.scan_codes('qr', image)
-    print('QR code: %s' % code.decode())
+    print('QR codes: %s' % code.decode())
 
 
 *The deprecated view:*

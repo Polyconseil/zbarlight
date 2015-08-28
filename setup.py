@@ -57,7 +57,12 @@ setup(
     license='BSD',
     packages=find_packages(exclude=['docs', 'tests']),
     ext_modules=[
-        Extension(str('zbarlight._zbarlight'), [str('zbarlight/_zbarlight.c')], libraries=['zbar']),
+        Extension(
+            str('zbarlight._zbarlight'),
+            [str('zbarlight/_zbarlight.c')],
+            extra_compile_args=['-std=c99'],
+            libraries=['zbar'],
+        ),
     ],
     include_package_data=True,
     zip_safe=False,

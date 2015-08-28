@@ -5,6 +5,8 @@ Reference
 
     Get QR code from a gray scale image ('Y800' mode)
 
+    The image should only have one QR code.
+
     :param bytes raw: Image data
     :param int width: Image width
     :param int height: Image height
@@ -17,6 +19,7 @@ Reference
 
     :param str symbology: Symbology to search
     :param: PIL Image to scan
+    :return: A list of *symbology* code values or None
 
 .. TODO find a better way to handle type validation
 .. seealso:: Python types

@@ -9,7 +9,10 @@ __ALL__ = ['scan_codes', 'qr_code_scanner']
 
 def qr_code_scanner(image, width, height):
     """Specific QR code scanner (deprecated)"""
-    return zbar_code_scanner(b'qr.enable', image, width, height)
+    result = zbar_code_scanner(b'qr.enable', image, width, height)
+    if isinstance(result, list) and len(result) != 1:
+        return None
+    return result[0] if result is not None else None
 
 
 def scan_codes(symbology, image):
