@@ -13,7 +13,7 @@ def pil_image(file_path):
     return image
 
 
-class CodeScannerTestCase(unittest.TestCase):
+class ScanCodeTestCase(unittest.TestCase):
     def assertIsNone(self, obj, msg=None):  # Python 2.6 hack
         return self.assertTrue(obj is None, '%s is not None' % repr(obj))
 
@@ -24,13 +24,13 @@ class CodeScannerTestCase(unittest.TestCase):
 
     def test_no_qr_code(self):
         image = self.get_image('no_qr_code')
-        self.assertIsNone(zbarlight.code_scanner('qr', image))
+        self.assertIsNone(zbarlight.scan_codes('qr', image))
 
     def test_one_qr_code(self):
         image = self.get_image('one_qr_code')
-        code = zbarlight.code_scanner('qr', image)
+        code = zbarlight.scan_codes('qr', image)
         self.assertEqual(code, b"zbarlight test qr code")
 
     def test_two_qr_code(self):
         image = self.get_image('two_qr_codes')
-        self.assertIsNone(zbarlight.code_scanner('qr', image))
+        self.assertIsNone(zbarlight.scan_codes('qr', image))
