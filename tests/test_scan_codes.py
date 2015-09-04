@@ -24,13 +24,16 @@ class ScanCodeTestCase(unittest.TestCase):
 
     def test_no_qr_code(self):
         image = self.get_image('no_qr_code')
-        self.assertIsNone(zbarlight.scan_codes('qr', image))
+        self.assertIsNone(zbarlight.scan_codes('qrcode', image))
 
     def test_one_qr_code(self):
         image = self.get_image('one_qr_code')
-        code = zbarlight.scan_codes('qr', image)
+        code = zbarlight.scan_codes('qrcode', image)
         self.assertEqual(code, [b"zbarlight test qr code"])
 
     def test_two_qr_code(self):
         image = self.get_image('two_qr_codes')
-        self.assertEqual(zbarlight.scan_codes('qr', image), [b'zbarlight test qr code', b'zbarlight test qr code'])
+        self.assertEqual(
+            sorted(zbarlight.scan_codes('qrcode', image)),
+            sorted([b'second zbarlight test qr code', b'zbarlight test qr code']),
+        )

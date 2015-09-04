@@ -16,7 +16,7 @@ def zbarlight_image(file_path):
 
 
 class QRCodeScannerTestCase(unittest.TestCase):
-    def assertIsNone(self, obj, msg=None):  # Python 2.6 hack
+    def assertIsNone(self, obj, msg=None):  # Python 2.6 compatibility
         return self.assertTrue(obj is None, '%s is not None' % repr(obj))
 
     def get_image(self, name):

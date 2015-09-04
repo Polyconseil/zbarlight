@@ -29,9 +29,10 @@ version = check_output(
 ).decode()
 release = version
 
-extensions = ['sphinx.ext.intersphinx', ]
+extensions = ['sphinx.ext.intersphinx', 'sphinx.ext.autodoc', 'sphinx.ext.napoleon']
 intersphinx_mapping = {
-    'python': ('http://docs.python.org/', None)
+    'python': ('http://docs.python.org/3', None),
+    'pillow': ('http://pillow.readthedocs.org/', None),
 }
 
 templates_path = []
