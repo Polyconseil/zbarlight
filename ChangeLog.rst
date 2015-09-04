@@ -5,9 +5,8 @@ ChangeLog
 --------------------
 
 * Add generic ``scan_codes()`` function (which can scan multiple codes in the same image)
-
 * Fix Python 2.6 tests
-* Exclude test from package
+* Exclude tests from package
 
 
 0.1.1 (2014-12-16)
