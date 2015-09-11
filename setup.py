@@ -70,7 +70,7 @@ setup(
         'setuptools',
     ],
     install_requires=REQUIREMENTS,
-    tests_require=REQUIREMENTS + [
+    tests_require= [
         'docutils',
         'Sphinx',
         'sphinx_rtd_theme',
