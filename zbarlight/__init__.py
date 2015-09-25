@@ -6,7 +6,7 @@ from PIL import Image
 from ._zbarlight import zbar_code_scanner
 
 
-__version__ = '0.1.1'
+__version__ = '1.0.0'
 __ALL__ = ['scan_codes', 'qr_code_scanner']
 
 
