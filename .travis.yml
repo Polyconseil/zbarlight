@@ -4,8 +4,9 @@ python:
   - "2.7"
   - "3.3"
   - "3.4"
-sudo: required
-before_install:
-    - sudo apt-get install -y libzbar0 libzbar-dev
+addons:
+  apt:
+    packages:
+     - libzbar-dev
 install: make update
 script: make test
