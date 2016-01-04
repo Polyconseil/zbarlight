@@ -32,7 +32,7 @@ release = version
 extensions = ['sphinx.ext.intersphinx', 'sphinx.ext.autodoc', 'sphinx.ext.napoleon']
 intersphinx_mapping = {
     'python': ('http://docs.python.org/3', None),
-    'pillow': ('http://pillow.readthedocs.org/', None),
+    'pillow': ('https://pillow.readthedocs.org/en/latest', None),
 }
 
 templates_path = []
