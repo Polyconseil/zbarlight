@@ -28,10 +28,6 @@ def get_long_description():
         return readme_file.read()
 
 
-REQUIREMENTS = [
-    'Pillow',
-]
-
 setup(
     name=PACKAGE,
     version=get_version(PACKAGE),
@@ -69,11 +65,7 @@ setup(
     setup_requires=[
         'setuptools',
     ],
-    install_requires=REQUIREMENTS,
-    tests_require=[
-        'docutils',
-        'Sphinx',
-        'sphinx_rtd_theme',
+    install_requires=[
+        'Pillow',
     ],
-    test_suite='tests'
 )
