@@ -1,0 +1,12 @@
+build:
+  image: python:$$PYTHON_VERSION
+  commands:
+    - make update
+    - make test
+
+matrix:
+  PYTHON_VERSION:
+    - 2.7
+    - 3.4
+    - 3.5
+
