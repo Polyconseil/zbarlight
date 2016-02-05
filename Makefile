@@ -1,7 +1,7 @@
 .PHONY: test docs
 
 update:
-	pip install -e .
+	pip install -r requirements-dev.txt
 
 clean:
 	find zbarlight "(" -name 'zbarlight*.so' -or -name '*.egg' -or -name '*.pyc' -or -name '*.pyo' ")" -delete
@@ -11,4 +11,4 @@ docs:
 	python setup.py build_sphinx
 
 test:
-	python setup.py test
+	py.test
