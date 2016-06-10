@@ -3,6 +3,7 @@
 update:
 	pip install -r requirements-dev.txt
 	python setup.py build_ext --inplace
+	pip install -e .
 
 clean:
 	find zbarlight "(" -name 'zbarlight*.so' -or -name '*.egg' -or -name '*.pyc' -or -name '*.pyo' ")" -delete

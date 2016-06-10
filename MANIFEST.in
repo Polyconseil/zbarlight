@@ -1,6 +1,7 @@
-recursive-include docs *.py *.rst
-recursive-include tests *.py *.png
-include ChangeLog.rst
-include LICENSE
-include README.rst
-exclude Makefile
+graft src/zbarlight
+prune docs
+prune tests
+global-exclude .py[cod] __pycache__ .so
+
+include ChangeLog.rst LICENSE README.rst
+exclude Makefile requirements-dev.txt

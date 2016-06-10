@@ -4,35 +4,21 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import io
 import os
 import os.path
-import re
 
 from setuptools import setup, find_packages, Extension
 
-PACKAGE = 'zbarlight'
 
-
-def _open(*file_path):
+def read(file_path):
     here = os.path.abspath(os.path.dirname(__file__))
-    return io.open(os.path.join(here, *file_path), 'r', encoding='utf-8')
-
-
-def get_version(package):
-    version_pattern = re.compile(r"^__version__ = [\"']([\w_.-]+)[\"']$", re.MULTILINE)
-    with _open(*(package.split('.') + ['__init__.py'])) as version_file:
-        matched = version_pattern.search(version_file.read())
-    return matched.groups()[0]
-
-
-def get_long_description():
-    with _open('README.rst') as readme_file:
-        return readme_file.read()
+    with io.open(os.path.join(here, file_path), 'r', encoding='utf-8') as fp:
+        return fp.read()
 
 
 setup(
-    name=PACKAGE,
-    version=get_version(PACKAGE),
+    name='zbarlight',
+    version='1.0.1.dev0',
     description="A simple zbar wrapper",
-    long_description=get_long_description(),
+    long_description=read('README.rst'),
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
@@ -48,8 +34,8 @@ setup(
     ],
     keywords=['zbar', 'QR code reader'],
     author='Polyconseil',
-    author_email='opensource+%s@polyconseil.fr' % PACKAGE,
-    url='https://github.com/Polyconseil/%s/' % PACKAGE,
+    author_email='opensource+zbarlight@polyconseil.fr',
+    url='https://github.com/Polyconseil/zbarlight/',
     license='BSD',
     packages=find_packages(exclude=['docs', 'tests']),
     ext_modules=[
