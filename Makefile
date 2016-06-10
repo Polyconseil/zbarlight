@@ -6,8 +6,8 @@ update:
 	pip install -e .
 
 clean:
-	find zbarlight "(" -name 'zbarlight*.so' -or -name '*.egg' -or -name '*.pyc' -or -name '*.pyo' ")" -delete
-	find zbarlight -type d "(" -name build -or -name __pycache__ ")" -exec rm -r {} \;
+	find src "(" -name '*.so' -or -name '*.egg' -or -name '*.pyc' -or -name '*.pyo' ")" -delete
+	find src -type d -name __pycache__ -exec rm -r {} \;
 
 docs:
 	python setup.py build_sphinx

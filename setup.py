@@ -37,11 +37,12 @@ setup(
     author_email='opensource+zbarlight@polyconseil.fr',
     url='https://github.com/Polyconseil/zbarlight/',
     license='BSD',
-    packages=find_packages(exclude=['docs', 'tests']),
+    packages=find_packages(where='src', exclude=['docs', 'tests']),
+    package_dir={'': str('src')},
     ext_modules=[
         Extension(
-            str('zbarlight._zbarlight'),
-            [str('zbarlight/_zbarlight.c')],
+            name=str('zbarlight._zbarlight'),
+            sources=[str('src/zbarlight/_zbarlight.c')],
             extra_compile_args=['-std=c99'],
             libraries=['zbar'],
         ),

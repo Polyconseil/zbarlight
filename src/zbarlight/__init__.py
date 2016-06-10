@@ -2,11 +2,12 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import warnings
 
 from PIL import Image
+import pkg_resources
 
 from ._zbarlight import zbar_code_scanner
 
 
-__version__ = '1.0.0'
+__version__ = pkg_resources.get_distribution('zbarlight').version
 __ALL__ = ['scan_codes', 'qr_code_scanner']
 
 
