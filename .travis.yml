@@ -2,11 +2,12 @@ language: python
 python:
   - "2.6"
   - "2.7"
-  - "3.3"
   - "3.4"
+  - "3.5"
 addons:
   apt:
     packages:
      - libzbar-dev
-install: make update
-script: make test
+
+install: pip install tox-travis pytest-travis-fold
+script: tox
