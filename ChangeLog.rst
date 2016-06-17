@@ -6,6 +6,7 @@ ChangeLog
 
 * Use zest.releaser
 * Use tox
+* Do not include tests and docs in package
 
 1.0.0 (2015-09-25)
 ------------------
