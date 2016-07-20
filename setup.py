@@ -1,16 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import, division, print_function, unicode_literals
-import io
-import os
-import os.path
-
 from setuptools import setup, find_packages, Extension
 
 
 def read(file_path):
-    here = os.path.abspath(os.path.dirname(__file__))
-    with io.open(os.path.join(here, file_path), 'r', encoding='utf-8') as fp:
+    with open(file_path) as fp:
         return fp.read()
 
 
