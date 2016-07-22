@@ -1,9 +1,33 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, division, print_function, unicode_literals
+import os
+import sys
 
 import pkg_resources
 import sphinx_rtd_theme
 
+
+class _Zbarlight(object):
+    """
+    Fake zbarlight C extension
+
+    Should be updated when C extension change.
+    """
+    def zbar_code_scanner(self, *args):
+        pass
+
+    def version(self):
+        pass
+
+    @classmethod
+    def monkey_patch(cls):
+        """Monkey path zbarlight C extension on Read The Docs"""
+        on_read_the_docs = os.environ.get('READTHEDOCS', False)
+        if on_read_the_docs:
+            sys.modules['zbarlight._zbarlight'] = cls
+
+
+_Zbarlight.monkey_patch()
 
 project = u'zbarlight'
 copyright = u'2014, Polyconseil'

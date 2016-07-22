@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import os
 from setuptools import setup, find_packages, Extension
 
 
 def read(file_path):
     with open(file_path) as fp:
         return fp.read()
-
 
 setup(
     name='zbarlight',
@@ -40,6 +40,7 @@ setup(
             sources=[str('src/zbarlight/_zbarlight.c')],
             extra_compile_args=['-std=c99'],
             libraries=['zbar'],
+            optional=os.environ.get('READTHEDOCS', False),  # Do not build on Read the Docs
         ),
     ],
     include_package_data=True,
