@@ -4,7 +4,7 @@ ChangeLog
 1.0.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix Install for setuptools < 22.0
 
 
 1.0.1 (2016-06-17)
