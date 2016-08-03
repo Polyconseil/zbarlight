@@ -10,7 +10,7 @@ def read(file_path):
 
 setup(
     name='zbarlight',
-    version='1.0.2',
+    version='1.0.3.dev0',
     description="A simple zbar wrapper",
     long_description=read('README.rst'),
     classifiers=[
