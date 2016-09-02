@@ -18,6 +18,8 @@ You need to install ZBar Bar Code Reader <http://zbar.sourceforge.net/> and its 
 
 Then you should use ``pip`` or ``setuptools`` to install the ``zbarlight`` wrapper.
 
+**For Windows installation** Instruction For Windows <https://gist.github.com/Zephor5/aea563808d80f488310869b69661f330>.
+
 How To use ZbarLight
 ====================
 
