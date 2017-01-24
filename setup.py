@@ -8,6 +8,7 @@ def read(file_path):
     with open(file_path) as fp:
         return fp.read()
 
+
 setup(
     name='zbarlight',
     version='1.0.3.dev0',
@@ -25,6 +26,7 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Topic :: Scientific/Engineering :: Image Recognition',
     ],
     keywords=['zbar', 'QR code reader'],
