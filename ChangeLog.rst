@@ -1,7 +1,7 @@
 ChangeLog
 =========
 
-1.0.3 (unreleased)
+1.1.0 (2017-01-24)
 ------------------
 
 - Officially support Python 3.6.
