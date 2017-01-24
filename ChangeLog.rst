@@ -5,6 +5,7 @@ ChangeLog
 ------------------
 
 - Officially support Python 3.6.
+- Drop Python 2.6 support
 
 1.0.2 (2016-08-03)
 ------------------
