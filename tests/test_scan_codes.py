@@ -37,3 +37,10 @@ class ScanCodeTestCase(unittest.TestCase):
             sorted(zbarlight.scan_codes('qrcode', image)),
             sorted([b'second zbarlight test qr code', b'zbarlight test qr code']),
         )
+
+    def test_one_qr_code_and_one_ean(self):
+        image = self.get_image('one_qr_code_and_one_ean')
+        self.assertEqual(
+            sorted(zbarlight.scan_codes('qrcode', image)),
+            sorted([b'zbarlight test qr code']),
+        )
