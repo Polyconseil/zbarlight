@@ -4,8 +4,7 @@ ChangeLog
 1.1.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Only return asked symbologie
 
 1.1.0 (2017-01-24)
 ------------------

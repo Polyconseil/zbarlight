@@ -13,7 +13,7 @@
 
 /* Extract QR code from raw image (using zbar) */
 static char** _zbar_code_scanner(
-    const char *config_str,
+    const int symbologie,
     const void *raw_image_data,
     unsigned long raw_image_data_length,
     unsigned int width,
@@ -24,7 +24,8 @@ static char** _zbar_code_scanner(
     char **data = NULL;
 
     zbar_image_scanner_t *scanner = zbar_image_scanner_create();
-    zbar_image_scanner_parse_config(scanner, config_str);
+    zbar_image_scanner_set_config(scanner, 0, ZBAR_CFG_ENABLE, 0); /* disable all symbologies */
+    zbar_image_scanner_set_config(scanner, symbologie, ZBAR_CFG_ENABLE, 1);
 
     zbar_image_t *image = zbar_image_create();
     zbar_image_set_format(image, format);
@@ -55,7 +56,7 @@ static char** _zbar_code_scanner(
 /* Python wrapper for _zbar_code_scanner() */
 static PyObject* zbar_code_scanner(PyObject *self, PyObject *args) {
     PyObject *python_image = NULL;
-    char *config_str = NULL;
+    int symbologie = 0;
     char *raw_image_data = NULL;
     Py_ssize_t raw_image_data_length = 0;
     unsigned int width = 0;
@@ -63,12 +64,12 @@ static PyObject* zbar_code_scanner(PyObject *self, PyObject *args) {
     char **result = NULL;
     PyObject *data = NULL;
 
-    if (!PyArg_ParseTuple(args, "SSII", &config_str, &python_image, &width, &height)) {
+    if (!PyArg_ParseTuple(args, "ISII", &symbologie, &python_image, &width, &height)) {
         return NULL;
     }
     PyBytes_AsStringAndSize(python_image, &raw_image_data, &raw_image_data_length);
 
-    result = _zbar_code_scanner(config_str, raw_image_data, raw_image_data_length, width, height);
+    result = _zbar_code_scanner(symbologie, raw_image_data, raw_image_data_length, width, height);
     if (result == NULL) {
         Py_RETURN_NONE;
     }
@@ -113,7 +114,24 @@ static struct PyModuleDef zbarlight_moduledef = {
 #endif
 
 PyObject* PyInit__zbarlight(void) { /* Python 3 way */
-    return PY_INIT_FCT();
+    PyObject* module = PY_INIT_FCT();
+    PyObject * symbologies = Py_BuildValue(
+        "{s:i,s:i,s:i,s:i,s:i,s:i,s:i,s:i,s:i,s:i,s:i}",
+        "EAN8", ZBAR_EAN8,
+        "UPCE", ZBAR_UPCE,
+        "ISBN10", ZBAR_ISBN10,
+        "UPCA", ZBAR_UPCA,
+        "EAN13", ZBAR_EAN13,
+        "ISBN13", ZBAR_ISBN13,
+        "I25", ZBAR_I25,
+        "CODE39", ZBAR_CODE39,
+        "PDF417", ZBAR_PDF417,
+        "QRCODE", ZBAR_QRCODE,
+        "CODE128", ZBAR_CODE128
+    );
+
+    PyModule_AddObject(module, "Symbologies", symbologies);
+    return module;
 }
 
 void init_zbarlight(void) { /* Python 2 way */

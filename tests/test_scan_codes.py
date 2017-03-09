@@ -40,7 +40,22 @@ class ScanCodeTestCase(unittest.TestCase):
 
     def test_one_qr_code_and_one_ean(self):
         image = self.get_image('one_qr_code_and_one_ean')
+
+        # Only read QRcode
         self.assertEqual(
             sorted(zbarlight.scan_codes('qrcode', image)),
             sorted([b'zbarlight test qr code']),
+        )
+
+        # Only read EAN code
+        self.assertEqual(
+            sorted(zbarlight.scan_codes('ean13', image)),
+            sorted([b'0012345678905']),
+        )
+
+    def test_unknown_symbology(self):
+        image = self.get_image('no_qr_code')
+        self.assertRaises(
+            zbarlight.UnknownSymbologieError,
+            zbarlight.scan_codes, 'not-a-zbar-symbologie', image,
         )
