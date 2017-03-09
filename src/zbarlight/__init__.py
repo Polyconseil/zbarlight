@@ -8,7 +8,7 @@ from ._zbarlight import Symbologies, zbar_code_scanner
 
 
 __version__ = pkg_resources.get_distribution('zbarlight').version
-__ALL__ = ['scan_codes', 'qr_code_scanner']
+__ALL__ = ['Symbologies', 'UnknownSymbologieError', 'scan_codes', 'qr_code_scanner']
 
 
 class UnknownSymbologieError(Exception):
@@ -29,7 +29,7 @@ def scan_codes(code_type, image):
     .. [#zbar_symbologies] http://zbar.sourceforge.net/iphone/userguide/symbologies.html
 
     Args:
-        code_type (str): Code type to search
+        code_type (str): Code type to search (see ``zbarlight.Symbologies`` for supported values)
         image (PIL.Image.Image): Image to scan
 
     returns:

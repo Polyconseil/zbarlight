@@ -116,7 +116,15 @@ static struct PyModuleDef zbarlight_moduledef = {
 PyObject* PyInit__zbarlight(void) { /* Python 3 way */
     PyObject* module = PY_INIT_FCT();
     PyObject * symbologies = Py_BuildValue(
+        #if ZBAR_VERSION_MAJOR == 0 && ZBAR_VERSION_MINOR < 11
         "{s:i,s:i,s:i,s:i,s:i,s:i,s:i,s:i,s:i,s:i,s:i}",
+        #else
+        "{s:i,s:i,s:i,s:i,s:i,s:i,s:i,s:i,s:i,s:i,s:i,s:i,s:i,s:i,s:i}",
+        "DATABAR", ZBAR_DATABAR,
+        "DATABAR_EXP", ZBAR_DATABAR_EXP,
+        "CODABAR", ZBAR_CODABAR,
+        "CODE93", ZBAR_CODE93,
+        #endif
         "EAN8", ZBAR_EAN8,
         "UPCE", ZBAR_UPCE,
         "ISBN10", ZBAR_ISBN10,
@@ -129,7 +137,6 @@ PyObject* PyInit__zbarlight(void) { /* Python 3 way */
         "QRCODE", ZBAR_QRCODE,
         "CODE128", ZBAR_CODE128
     );
-
     PyModule_AddObject(module, "Symbologies", symbologies);
     return module;
 }
