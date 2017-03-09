@@ -1,8 +1,8 @@
 ChangeLog
 =========
 
-1.1.1 (unreleased)
-------------------
+1.2 (2017-03-09)
+----------------
 
 - Only return asked symbologie
 
