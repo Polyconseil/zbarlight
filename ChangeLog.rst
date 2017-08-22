@@ -1,10 +1,10 @@
 ChangeLog
 =========
 
-1.3 (unreleased)
+2.0 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Drop deprecated qr_code_scanner() method.
 
 
 1.2 (2017-03-09)

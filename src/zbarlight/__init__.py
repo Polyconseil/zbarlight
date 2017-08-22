@@ -1,5 +1,4 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
-import warnings
 
 from PIL import Image
 import pkg_resources
@@ -8,7 +7,7 @@ from ._zbarlight import Symbologies, zbar_code_scanner
 
 
 __version__ = pkg_resources.get_distribution('zbarlight').version
-__ALL__ = ['Symbologies', 'UnknownSymbologieError', 'scan_codes', 'qr_code_scanner']
+__ALL__ = ['Symbologies', 'UnknownSymbologieError', 'scan_codes']
 
 
 class UnknownSymbologieError(Exception):
@@ -43,25 +42,3 @@ def scan_codes(code_type, image):
     if not symbologie:
         raise UnknownSymbologieError('Unknown Symbologie: %s' % code_type)
     return zbar_code_scanner(symbologie, raw, width, height)
-
-
-def qr_code_scanner(image, width, height):
-    """Get QR code from a gray scale image ('Y800' mode)
-
-    If the image has more than one QR code, ``None`` is returned.
-
-    This function is deprecated, use ``scan_codes()`` instead.
-
-    Args:
-        image (bytes): Image data
-        width (int): Image width
-        height (int): Image height
-
-    Returns:
-        The QR code value or None
-    """
-    warnings.warn('qr_code_scanner() is deprecated use scan_codes() instead.', DeprecationWarning)
-    result = zbar_code_scanner(Symbologies['QRCODE'], image, width, height)
-    if isinstance(result, list) and len(result) == 1:
-        return result[0]
-    return None
