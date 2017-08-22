@@ -2,7 +2,8 @@
     :maxdepth: 2
     :hidden:
 
-    intro.rst
-    reference.rst
+    intro
+    reference
+    Changelog
 
 .. include:: ../README.rst
