@@ -4,7 +4,8 @@ ChangeLog
 2.0 (unreleased)
 ----------------
 
-- Drop deprecated qr_code_scanner() method.
+- Drop deprecated qr_code_scanner() method
+- Add helper to add background color on image
 
 
 1.2 (2017-03-09)

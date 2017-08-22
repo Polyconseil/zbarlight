@@ -7,7 +7,17 @@ from ._zbarlight import Symbologies, zbar_code_scanner
 
 
 __version__ = pkg_resources.get_distribution('zbarlight').version
-__ALL__ = ['Symbologies', 'UnknownSymbologieError', 'scan_codes']
+__ALL__ = [
+    'Symbologies',
+    'UnknownSymbologieError',
+    'scan_codes',
+    'copy_image_on_background',
+    'BLACK',
+    'WHITE',
+]
+
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
 
 
 class UnknownSymbologieError(Exception):
@@ -42,3 +52,18 @@ def scan_codes(code_type, image):
     if not symbologie:
         raise UnknownSymbologieError('Unknown Symbologie: %s' % code_type)
     return zbar_code_scanner(symbologie, raw, width, height)
+
+
+def copy_image_on_background(image, color=WHITE):
+    """Create a new image by copying the image on a *color* background
+
+    Args:
+        image (PIL.Image.Image): Image to copy
+        color (tuple): Background color usually WHITE or BLACK
+
+    Returns:
+        PIL.Image.Image
+    """
+    background = Image.new("RGB", image.size, color)
+    background.paste(image, mask=image.split()[3])
+    return background

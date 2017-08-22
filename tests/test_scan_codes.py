@@ -17,9 +17,9 @@ class ScanCodeTestCase(unittest.TestCase):
     def assertIsNone(self, obj, msg=None):  # Python 2.6 hack
         return self.assertTrue(obj is None, '%s is not None' % repr(obj))
 
-    def get_image(self, name):
+    def get_image(self, name, ext='png'):
         return pil_image(
-            os.path.join(os.path.dirname(__file__), 'fixtures', '{0}.png'.format(name))
+            os.path.join(os.path.dirname(__file__), 'fixtures', '{0}.{1}'.format(name, ext))
         )
 
     def test_no_qr_code(self):
@@ -58,4 +58,23 @@ class ScanCodeTestCase(unittest.TestCase):
         self.assertRaises(
             zbarlight.UnknownSymbologieError,
             zbarlight.scan_codes, 'not-a-zbar-symbologie', image,
+        )
+
+    def test_need_white_background(self):
+        """
+        User submitted sample that can only be decoded after add a white background
+        """
+        # Not working
+        image = self.get_image('sample_need_white_background')
+
+        self.assertEqual(
+            sorted(zbarlight.scan_codes('qrcode', image) or []),
+            [],
+        )
+
+        # Working when adding white background
+        image_with_background = zbarlight.copy_image_on_background(image)
+        self.assertEqual(
+            sorted(zbarlight.scan_codes('qrcode', image_with_background) or []),
+            sorted([b'http://en.m.wikipedia.org']),
         )
