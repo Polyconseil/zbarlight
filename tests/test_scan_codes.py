@@ -78,3 +78,32 @@ class ScanCodeTestCase(unittest.TestCase):
             sorted(zbarlight.scan_codes('qrcode', image_with_background) or []),
             sorted([b'http://en.m.wikipedia.org']),
         )
+
+    @unittest.expectedFailure
+    def test_only_thumbnail_works(self):
+        """
+        User submitted sample that can only be decoded after thumbnail or after adding a black border of at least 5px
+        """
+        # thumbnail
+        image = self.get_image('sample_only_thumbnail_works', ext='jpg')
+        image.thumbnail((image.size[0] / 8, image.size[1] / 8))
+        self.assertEqual(
+            sorted(zbarlight.scan_codes('qrcode', image) or []),
+            sorted([b"It's great! Your app works!"]),
+        )
+
+        # black border of 5px
+        image = self.get_image('sample_only_thumbnail_works', ext='jpg')
+        bordered = Image.new("RGB", (image.size[0] + 10, image.size[1] + 10), zbarlight.BLACK)
+        bordered.paste(image, box=(5, 5))
+        self.assertEqual(
+            sorted(zbarlight.scan_codes('qrcode', bordered) or []),
+            sorted([b"It's great! Your app works!"]),
+        )
+
+        # original image
+        image = self.get_image('sample_only_thumbnail_works', ext='jpg')
+        self.assertEqual(
+            sorted(zbarlight.scan_codes('qrcode', image) or []),
+            sorted([b"It's great! Your app works!"]),
+        )

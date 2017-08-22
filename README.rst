@@ -56,3 +56,6 @@ alpha channel). You can use the ``copy_image_on_background`` function to add a b
     new_image = zbarlight.copy_image_on_background(image, color=zbarlight.WHITE)  # <<<<<<<<<<<<<<<< Add this line <<<<
     codes = zbarlight.scan_codes('qrcode', new_image)
     print('QR codes: %s' % codes)
+
+Some other cases without known solutions are show in the ``scan_codes()`` tests (search for the expected failures). Any
+clues on these cases is welcome.
