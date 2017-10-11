@@ -1,14 +1,15 @@
 #!/usr/bin/python
 import sys
+import argparse
 from PIL import Image
 import zbarlight
 
 
 def main():
-    if len(sys.argv) < 2:
-        print 'Please input an image file !'
-        exit()
-    with open(sys.argv[1], 'rb') as image_file:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('image', default='./tests/fixtures/two_qr_codes.png', help='input image')
+    args = parser.parse_args()
+    with open(args.image, 'rb') as image_file:
         image = Image.open(image_file)
         image.load()
         codes = zbarlight.scan_codes('qrcode', image)
