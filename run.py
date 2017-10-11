@@ -7,7 +7,7 @@ import zbarlight
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('image', default='./tests/fixtures/two_qr_codes.png', help='input image')
+    parser.add_argument('image', help='input image')
     args = parser.parse_args()
     with open(args.image, 'rb') as image_file:
         image = Image.open(image_file)
