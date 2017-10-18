@@ -11,14 +11,30 @@ suggestions and pull requests are welcome.
 Installation
 ============
 
-You need to install ZBar Bar Code Reader <http://zbar.sourceforge.net/> and its headers to use ``zbarlight``:
+You need to install ZBar Bar Code Reader <http://zbar.sourceforge.net/> and its headers before installing ``zbarlight``.
 
-- on Debian, ``apt-get install libzbar0 libzbar-dev``
-- on Mac OS X, ``brew install zbar``
+On Debian
+~~~~~~~~~
 
-Then you should use ``pip`` or ``setuptools`` to install the ``zbarlight`` wrapper.
+.. code-block:: console
 
-**For Windows installation** Instruction For Windows <https://gist.github.com/Zephor5/aea563808d80f488310869b69661f330>.
+    $ apt-get install libzbar0 libzbar-dev
+    $ pip install zbarlight  # you can also use setuptools directly
+
+On Mac OS X
+~~~~~~~~~~~
+
+.. code-block:: console
+
+    $ brew install zbar
+    $ export LDFLAGS="-L$(brew --prefix zbar)/lib"
+    $ export CFLAGS="-I$(brew --prefix zbar)/include"
+    $ pip install zbarlight
+
+On Windows
+~~~~~~~~~~
+
+Instruction can be found on <https://gist.github.com/Zephor5/aea563808d80f488310869b69661f330>.
 
 How To use ZbarLight
 ====================
