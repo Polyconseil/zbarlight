@@ -1,7 +1,7 @@
 ChangeLog
 =========
 
-2.0 (unreleased)
+2.0 (2018-01-24)
 ----------------
 
 - Drop deprecated qr_code_scanner() method
