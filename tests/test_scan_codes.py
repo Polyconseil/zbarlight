@@ -14,12 +14,9 @@ def pil_image(file_path):
 
 
 class ScanCodeTestCase(unittest.TestCase):
-    def assertIsNone(self, obj, msg=None):  # Python 2.6 hack
-        return self.assertTrue(obj is None, '%s is not None' % repr(obj))
-
     def get_image(self, name, ext='png'):
         return pil_image(
-            os.path.join(os.path.dirname(__file__), 'fixtures', '{0}.{1}'.format(name, ext))
+            os.path.join(os.path.dirname(__file__), 'fixtures', '{0}.{1}'.format(name, ext)),
         )
 
     def test_no_qr_code(self):
@@ -61,9 +58,7 @@ class ScanCodeTestCase(unittest.TestCase):
         )
 
     def test_need_white_background(self):
-        """
-        User submitted sample that can only be decoded after add a white background
-        """
+        """User submitted sample that can only be decoded after add a white background."""
         # Not working
         image = self.get_image('sample_need_white_background')
 
@@ -80,9 +75,9 @@ class ScanCodeTestCase(unittest.TestCase):
         )
 
     @unittest.expectedFailure
-    def test_only_thumbnail_works(self):
+    def test_only_thumbnail_works(self):  # noqa: D200
         """
-        User submitted sample that can only be decoded after thumbnail or after adding a black border of at least 5px
+        User submitted sample that can only be decoded after thumbnail or after adding a black border of at least 5px.
         """
         # thumbnail
         image = self.get_image('sample_only_thumbnail_works', ext='jpg')

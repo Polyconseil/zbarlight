@@ -25,7 +25,8 @@ class UnknownSymbologieError(Exception):
 
 
 def scan_codes(code_type, image):
-    """Get *code_type* codes from a PIL Image
+    """
+    Get *code_type* codes from a PIL Image.
 
     *code_type* can be any of zbar supported code type [#zbar_symbologies]_:
 
@@ -43,8 +44,10 @@ def scan_codes(code_type, image):
 
     returns:
         A list of *code_type* code values or None
+
     """
-    assert Image.isImageType(image)
+    if not Image.isImageType(image):
+        raise RuntimeError('Bad or unknown image format')
     converted_image = image.convert('L')  # Convert image to gray scale (8 bits per pixel).
     raw = converted_image.tobytes()  # Get image data.
     width, height = converted_image.size  # Get image size.
@@ -55,7 +58,8 @@ def scan_codes(code_type, image):
 
 
 def copy_image_on_background(image, color=WHITE):
-    """Create a new image by copying the image on a *color* background
+    """
+    Create a new image by copying the image on a *color* background.
 
     Args:
         image (PIL.Image.Image): Image to copy
@@ -63,6 +67,7 @@ def copy_image_on_background(image, color=WHITE):
 
     Returns:
         PIL.Image.Image
+
     """
     background = Image.new("RGB", image.size, color)
     background.paste(image, mask=image.split()[3])

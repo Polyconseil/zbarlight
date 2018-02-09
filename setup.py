@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 import os
-from setuptools import setup, Extension
+
+from setuptools import Extension
+from setuptools import setup
 
 setup(
     setup_requires=['setuptools>=30.3'],
