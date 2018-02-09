@@ -1,15 +1,27 @@
+# Installation
+setuptools>=30.3
+
 # Documentation
 docutils
 pygments
-Sphinx
+Sphinx>=1.5.1
 sphinx_rtd_theme
 
 # Tests and Quality
 check-manifest
 flake8
+flake8-bandit
+flake8-bugbear
+flake8-builtins-unleashed
+flake8-commas
+flake8-docstrings
+flake8-isort
+flake8-mutable
+pep8-naming
 pytest
 readme-renderer
 tox
+vulture
 
 # Release
 zest.releaser[recommended]
