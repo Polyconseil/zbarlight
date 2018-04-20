@@ -25,3 +25,4 @@ vulture
 
 # Release
 zest.releaser[recommended]
+polydev-github
