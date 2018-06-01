@@ -49,7 +49,7 @@ How To use ZbarLight
         image = Image.open(image_file)
         image.load()
 
-    codes = zbarlight.scan_codes('qrcode', image)
+    codes = zbarlight.scan_codes(['qrcode'], image)
     print('QR codes: %s' % codes)
 
 Troubleshooting
@@ -70,7 +70,7 @@ alpha channel). You can use the ``copy_image_on_background`` function to add a b
         image.load()
 
     new_image = zbarlight.copy_image_on_background(image, color=zbarlight.WHITE)  # <<<<<<<<<<<<<<<< Add this line <<<<
-    codes = zbarlight.scan_codes('qrcode', new_image)
+    codes = zbarlight.scan_codes(['qrcode'], new_image)
     print('QR codes: %s' % codes)
 
 Some other cases without known solutions are show in the ``scan_codes()`` tests (search for the expected failures). Any

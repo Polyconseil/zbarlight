@@ -12,8 +12,9 @@ def main():
     with open(args.image, 'rb') as image_file:
         image = Image.open(image_file)
         image.load()
-        codes = zbarlight.scan_codes('qrcode', image)
+        codes = zbarlight.scan_codes(['qrcode'], image)
         print('QR codes: %s' % codes)
+
 
 if __name__ == '__main__':
     main()

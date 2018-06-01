@@ -1,4 +1,5 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
+import warnings
 
 from PIL import Image
 import pkg_resources
@@ -39,14 +40,19 @@ def scan_codes(code_types, image):
     .. [#zbar_symbologies] http://zbar.sourceforge.net/iphone/userguide/symbologies.html
 
     Args:
-        code_types (list or str): Code type(s) to search (see ``zbarlight.Symbologies`` for supported values)
+        code_types (list(str)): Code type(s) to search (see ``zbarlight.Symbologies`` for supported values).
         image (PIL.Image.Image): Image to scan
 
     returns:
         A list of *code_type* code values or None
 
     """
-    code_types = [code_types] if isinstance(code_types, str) else code_types
+    if isinstance(code_types, str):
+        code_types = [code_types]
+        warnings.warn(
+            'Using a str for code_types is deprecated, please use a list of str instead',
+            DeprecationWarning,
+        )
 
     # Translate symbologies
     symbologies = [
