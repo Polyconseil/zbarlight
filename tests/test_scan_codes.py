@@ -50,6 +50,13 @@ class ScanCodeTestCase(unittest.TestCase):
             sorted([b'0012345678905']),
         )
 
+    def test_one_qr_code_and_one_ean_at_once(self):
+        image = self.get_image('one_qr_code_and_one_ean')
+        self.assertEqual(
+            sorted(zbarlight.scan_codes(['qrcode', 'ean13'], image)),
+            sorted([b'zbarlight test qr code', b'0012345678905']),
+        )
+
     def test_unknown_symbology(self):
         image = self.get_image('no_qr_code')
         self.assertRaises(

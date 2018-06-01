@@ -1,7 +1,7 @@
 ZbarLight
 =========
 
-``zbarlight`` is a simple wrapper for the zbar library. For now, it only allows to read QR codes but contributions,
+``zbarlight`` is a simple wrapper for the zbar library. For now, it can read all zbar supported codes. Contributions,
 suggestions and pull requests are welcome.
 
 ``zbarlight`` is compatible with Python 2 and Python 3.

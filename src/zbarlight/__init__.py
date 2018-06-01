@@ -24,7 +24,7 @@ class UnknownSymbologieError(Exception):
     pass
 
 
-def scan_codes(code_type, image):
+def scan_codes(code_types, image):
     """
     Get *code_type* codes from a PIL Image.
 
@@ -39,22 +39,34 @@ def scan_codes(code_type, image):
     .. [#zbar_symbologies] http://zbar.sourceforge.net/iphone/userguide/symbologies.html
 
     Args:
-        code_type (str): Code type to search (see ``zbarlight.Symbologies`` for supported values)
+        code_types (list or str): Code type(s) to search (see ``zbarlight.Symbologies`` for supported values)
         image (PIL.Image.Image): Image to scan
 
     returns:
         A list of *code_type* code values or None
 
     """
+    code_types = [code_types] if isinstance(code_types, str) else code_types
+
+    # Translate symbologies
+    symbologies = [
+        Symbologies.get(code_type.upper())
+        for code_type in set(code_types)
+    ]
+
+    # Check that all symbologies are known
+    if None in symbologies:
+        bad_code_types = [code_type for code_type in code_types if code_type.upper() not in Symbologies]
+        raise UnknownSymbologieError('Unknown Symbologies: %s' % bad_code_types)
+
+    # Convert the image to be used by c-extension
     if not Image.isImageType(image):
         raise RuntimeError('Bad or unknown image format')
     converted_image = image.convert('L')  # Convert image to gray scale (8 bits per pixel).
     raw = converted_image.tobytes()  # Get image data.
     width, height = converted_image.size  # Get image size.
-    symbologie = Symbologies.get(code_type.upper())
-    if not symbologie:
-        raise UnknownSymbologieError('Unknown Symbologie: %s' % code_type)
-    return zbar_code_scanner(symbologie, raw, width, height)
+
+    return zbar_code_scanner(symbologies, raw, width, height)
 
 
 def copy_image_on_background(image, color=WHITE):

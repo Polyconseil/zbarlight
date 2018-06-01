@@ -4,7 +4,7 @@ ChangeLog
 2.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Allow to search for more than one kind of bar code at once
 
 
 2.0 (2018-01-24)

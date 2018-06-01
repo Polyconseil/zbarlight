@@ -11,9 +11,16 @@
 #define PY_INIT_FCT() Py_InitModule("_zbarlight", zbarlight_functions)
 #endif
 
+#define KNOWN_SYMNOLOGIES 15
+
+struct Symbologies {
+    int number;
+    int symbologie[KNOWN_SYMNOLOGIES];  /* Do not use malloc, allocate space for all known symbologies */
+};
+
 /* Extract QR code from raw image (using zbar) */
 static char** _zbar_code_scanner(
-    const int symbologie,
+    const struct Symbologies *symbologies,
     const void *raw_image_data,
     unsigned long raw_image_data_length,
     unsigned int width,
@@ -25,7 +32,9 @@ static char** _zbar_code_scanner(
 
     zbar_image_scanner_t *scanner = zbar_image_scanner_create();
     zbar_image_scanner_set_config(scanner, 0, ZBAR_CFG_ENABLE, 0); /* disable all symbologies */
-    zbar_image_scanner_set_config(scanner, symbologie, ZBAR_CFG_ENABLE, 1);
+    for (int i=0; i < symbologies->number; i++) {
+        zbar_image_scanner_set_config(scanner, symbologies->symbologie[i], ZBAR_CFG_ENABLE, 1);
+    }
 
     zbar_image_t *image = zbar_image_create();
     zbar_image_set_format(image, format);
@@ -56,20 +65,27 @@ static char** _zbar_code_scanner(
 /* Python wrapper for _zbar_code_scanner() */
 static PyObject* zbar_code_scanner(PyObject *self, PyObject *args) {
     PyObject *python_image = NULL;
-    int symbologie = 0;
+    PyObject * python_symbologies = NULL;
     char *raw_image_data = NULL;
     Py_ssize_t raw_image_data_length = 0;
     unsigned int width = 0;
     unsigned int height = 0;
+    struct Symbologies symbologies;
     char **result = NULL;
     PyObject *data = NULL;
 
-    if (!PyArg_ParseTuple(args, "ISII", &symbologie, &python_image, &width, &height)) {
+    if (!PyArg_ParseTuple(args, "O!SII", &PyList_Type, &python_symbologies, &python_image, &width, &height)) {
         return NULL;
     }
     PyBytes_AsStringAndSize(python_image, &raw_image_data, &raw_image_data_length);
 
-    result = _zbar_code_scanner(symbologie, raw_image_data, raw_image_data_length, width, height);
+    symbologies.number = PyList_Size(python_symbologies);
+    for (int i=0; i < symbologies.number && i < KNOWN_SYMNOLOGIES; i++) {
+        PyObject * obj = PyList_GetItem(python_symbologies, i);
+        symbologies.symbologie[i] = PyLong_AsLong(obj);
+    }
+
+    result = _zbar_code_scanner(&symbologies, raw_image_data, raw_image_data_length, width, height);
     if (result == NULL) {
         Py_RETURN_NONE;
     }
@@ -116,6 +132,7 @@ static struct PyModuleDef zbarlight_moduledef = {
 PyObject* PyInit__zbarlight(void) { /* Python 3 way */
     PyObject* module = PY_INIT_FCT();
     PyObject * symbologies = Py_BuildValue(
+        /* XXX: Do not forget to update KNOWN_SYMNOLOGIES when updating this */
         #if ZBAR_VERSION_MAJOR == 0 && ZBAR_VERSION_MINOR < 11
         "{s:i,s:i,s:i,s:i,s:i,s:i,s:i,s:i,s:i,s:i,s:i}",
         #else
