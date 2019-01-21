@@ -4,7 +4,8 @@ ChangeLog
 2.2 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Add official support for Python 3.7
+- Deprecate Python 3.4 (end-of-life 2019-03-16)
 
 
 2.1 (2018-06-04)
