@@ -1,7 +1,7 @@
 ChangeLog
 =========
 
-2.2 (unreleased)
+2.2 (2019-01-21)
 ----------------
 
 - Add official support for Python 3.7
