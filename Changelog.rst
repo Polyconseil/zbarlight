@@ -4,7 +4,7 @@ ChangeLog
 2.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Support https://github.com/mchehab/zbar zbar fork (used by ArchLinux)
 
 
 2.2 (2019-01-21)

@@ -100,21 +100,8 @@ static PyObject* zbar_code_scanner(PyObject *self, PyObject *args) {
     return data;
 }
 
-/* Get zbar version */
-static PyObject* version(PyObject *self, PyObject *args) {
-    unsigned int major, minor;
-
-    if (!PyArg_ParseTuple(args, "")) {
-        return NULL;
-    }
-
-    zbar_version(&major, &minor);
-    return Py_BuildValue("II", major, minor);
-}
-
 /* Module initialization */
 static PyMethodDef zbarlight_functions[] = {
-    { "version", version, METH_VARARGS, NULL},
     { "zbar_code_scanner", zbar_code_scanner, METH_VARARGS, NULL},
     { NULL }
 };
