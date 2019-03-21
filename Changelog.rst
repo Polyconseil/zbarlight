@@ -4,7 +4,7 @@ ChangeLog
 2.4 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Drop Python 3.4 support
 
 
 2.3 (2019-03-21)
