@@ -1,11 +1,13 @@
-from __future__ import absolute_import, unicode_literals
+from __future__ import absolute_import
+from __future__ import unicode_literals
 
 import warnings
 
 import pkg_resources
 from PIL import Image
 
-from ._zbarlight import Symbologies, zbar_code_scanner
+from ._zbarlight import Symbologies
+from ._zbarlight import zbar_code_scanner
 
 __version__ = pkg_resources.get_distribution('zbarlight').version
 __ALL__ = [
