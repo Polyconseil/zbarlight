@@ -17,7 +17,7 @@ Quality:  # not used in tests
 	vulture --exclude=build/ src tests setup.py
 
 tests:
-	py.test tests
+	pytest tests/
 
 clean:
 	-find src "(" -name '*.so' -or -name '*.egg' -or -name '*.pyc' -or -name '*.pyo' ")" -delete
