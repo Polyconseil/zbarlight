@@ -4,6 +4,7 @@ ChangeLog
 2.4 (unreleased)
 ----------------
 
+- Add Python 3.8 support
 - Drop Python 2.7 support (end-of-life 2020-01-01) **breaking change**
 - Drop Python 3.4 support (end-of-life 2019-03-18) **breaking change**
 
