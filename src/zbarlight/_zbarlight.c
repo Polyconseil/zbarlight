@@ -2,15 +2,6 @@
 #include <stdlib.h>
 #include <zbar.h>
 
-/* Python 2 and Python 3 Compatibility */
-#if PY_MAJOR_VERSION >= 3
-#define PY_BYTES_FROM_STRING(result) PyBytes_FromString(result)
-#define PY_INIT_FCT() PyModule_Create(&zbarlight_moduledef)
-#else
-#define PY_BYTES_FROM_STRING(result) PyString_FromString(result)
-#define PY_INIT_FCT() Py_InitModule("_zbarlight", zbarlight_functions)
-#endif
-
 #define KNOWN_SYMNOLOGIES 15
 
 struct Symbologies {
@@ -92,7 +83,7 @@ static PyObject* zbar_code_scanner(PyObject *self, PyObject *args) {
 
     data = PyList_New(0);
     for(int i=0; result[i] != NULL; i++) {
-        PyObject *item = PY_BYTES_FROM_STRING(result[i]);
+        PyObject *item = PyBytes_FromString(result[i]);
         PyList_Append(data, item);
         free(result[i]);
     }
@@ -106,7 +97,6 @@ static PyMethodDef zbarlight_functions[] = {
     { NULL }
 };
 
-#if PY_MAJOR_VERSION >= 3
 static struct PyModuleDef zbarlight_moduledef = {
     PyModuleDef_HEAD_INIT,
     "_zbarlight",
@@ -114,10 +104,9 @@ static struct PyModuleDef zbarlight_moduledef = {
     -1,
     zbarlight_functions,
 };
-#endif
 
-PyObject* PyInit__zbarlight(void) { /* Python 3 way */
-    PyObject* module = PY_INIT_FCT();
+PyObject* PyInit__zbarlight(void) {
+    PyObject* module = PyModule_Create(&zbarlight_moduledef);
     PyObject * symbologies = Py_BuildValue(
         /* XXX: Do not forget to update KNOWN_SYMNOLOGIES when updating this */
         #if ZBAR_VERSION_MAJOR == 0 && ZBAR_VERSION_MINOR < 11
@@ -143,8 +132,4 @@ PyObject* PyInit__zbarlight(void) { /* Python 3 way */
     );
     PyModule_AddObject(module, "Symbologies", symbologies);
     return module;
-}
-
-void init_zbarlight(void) { /* Python 2 way */
-    PyInit__zbarlight();
 }
