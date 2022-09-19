@@ -71,7 +71,8 @@ def scan_codes(code_types, image, is_binary=False):
     raw = converted_image.tobytes()  # Get image data.
     width, height = converted_image.size  # Get image size.
 
-    return zbar_code_scanner(symbologies, raw, width, height, is_binary ? 1 : 0)
+    is_binary_int = 1 if is_binary else 0
+    return zbar_code_scanner(symbologies, raw, width, height, is_binary_int )
 
 
 def copy_image_on_background(image, color=WHITE):
