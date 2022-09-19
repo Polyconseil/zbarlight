@@ -25,7 +25,7 @@ static char** _zbar_code_scanner(
     zbar_image_scanner_t *scanner = zbar_image_scanner_create();
     zbar_image_scanner_set_config(scanner, 0, ZBAR_CFG_ENABLE, 0); /* disable all symbologies */
     if (is_binary){
-        zbar_image_scanner_set_config(scanner, ZBAR_QRCODE, ZBAR_CFG_BINARY, 1);
+        zbar_image_scanner_set_config(scanner, 0, ZBAR_CFG_BINARY, 1);
     }
     for (int i=0; i < symbologies->number; i++) {
         zbar_image_scanner_set_config(scanner, symbologies->symbologie[i], ZBAR_CFG_ENABLE, 1);
