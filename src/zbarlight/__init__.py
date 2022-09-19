@@ -24,7 +24,7 @@ class UnknownSymbologieError(Exception):
     pass
 
 
-def scan_codes(code_types, image):
+def scan_codes(code_types, image, is_binary=False):
     """
     Get *code_type* codes from a PIL Image.
 
@@ -71,7 +71,7 @@ def scan_codes(code_types, image):
     raw = converted_image.tobytes()  # Get image data.
     width, height = converted_image.size  # Get image size.
 
-    return zbar_code_scanner(symbologies, raw, width, height)
+    return zbar_code_scanner(symbologies, raw, width, height, is_binary ? 1 : 0)
 
 
 def copy_image_on_background(image, color=WHITE):

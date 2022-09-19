@@ -15,7 +15,8 @@ static char** _zbar_code_scanner(
     const void *raw_image_data,
     unsigned long raw_image_data_length,
     unsigned int width,
-    unsigned int height
+    unsigned int height,
+    unsigned int is_binary
 ) {
     int decoded = -2;
     int format = *(int *) "Y800";
@@ -23,6 +24,9 @@ static char** _zbar_code_scanner(
 
     zbar_image_scanner_t *scanner = zbar_image_scanner_create();
     zbar_image_scanner_set_config(scanner, 0, ZBAR_CFG_ENABLE, 0); /* disable all symbologies */
+    if (is_binary){
+        zbar_image_scanner_set_config(scanner, ZBAR_QRCODE, ZBAR_CFG_BINARY, 1);
+    }
     for (int i=0; i < symbologies->number; i++) {
         zbar_image_scanner_set_config(scanner, symbologies->symbologie[i], ZBAR_CFG_ENABLE, 1);
     }
@@ -61,11 +65,12 @@ static PyObject* zbar_code_scanner(PyObject *self, PyObject *args) {
     Py_ssize_t raw_image_data_length = 0;
     unsigned int width = 0;
     unsigned int height = 0;
+    unsigned int is_binary = 0;
     struct Symbologies symbologies;
     char **result = NULL;
     PyObject *data = NULL;
 
-    if (!PyArg_ParseTuple(args, "O!SII", &PyList_Type, &python_symbologies, &python_image, &width, &height)) {
+    if (!PyArg_ParseTuple(args, "O!SII", &PyList_Type, &python_symbologies, &python_image, &width, &height, &is_binary)) {
         return NULL;
     }
     PyBytes_AsStringAndSize(python_image, &raw_image_data, &raw_image_data_length);
@@ -76,7 +81,7 @@ static PyObject* zbar_code_scanner(PyObject *self, PyObject *args) {
         symbologies.symbologie[i] = PyLong_AsLong(obj);
     }
 
-    result = _zbar_code_scanner(&symbologies, raw_image_data, raw_image_data_length, width, height);
+    result = _zbar_code_scanner(&symbologies, raw_image_data, raw_image_data_length, width, height, is_binary);
     if (result == NULL) {
         Py_RETURN_NONE;
     }
