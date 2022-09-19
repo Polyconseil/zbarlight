@@ -70,7 +70,7 @@ static PyObject* zbar_code_scanner(PyObject *self, PyObject *args) {
     char **result = NULL;
     PyObject *data = NULL;
 
-    if (!PyArg_ParseTuple(args, "O!SII", &PyList_Type, &python_symbologies, &python_image, &width, &height, &is_binary)) {
+    if (!PyArg_ParseTuple(args, "O!SIII", &PyList_Type, &python_symbologies, &python_image, &width, &height, &is_binary)) {
         return NULL;
     }
     PyBytes_AsStringAndSize(python_image, &raw_image_data, &raw_image_data_length);
