@@ -98,7 +98,7 @@ static PyObject* zbar_code_scanner(PyObject *self, PyObject *args) {
 
 /* Module initialization */
 static PyMethodDef zbarlight_functions[] = {
-    { "zbar_code_scanner", zbar_code_scanner, METH_VARARGS, NULL, NULL },
+    { "zbar_code_scanner", zbar_code_scanner, METH_VARARGS, NULL },
     { NULL }
 };
 
