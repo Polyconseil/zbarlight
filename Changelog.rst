@@ -4,6 +4,12 @@ ChangeLog
 4.0 (unreleased)
 ----------------
 
+**Important:** This release drops compatibility with old, unsupported
+versions of Python (see details below). If you still use those
+versions, you should pin ``zbarlight < 4``.
+
+- |breaking-change| Drop support of Python 3.9 and earlier.
+- Add support of Python 3.10 and later (up to Python 3.14 included).
 - Fix support of PIL (Pillow) 12.
 
 
@@ -11,8 +17,8 @@ ChangeLog
 ----------------
 
 - Add Python 3.8 support
-- Drop Python 2.7 support (end-of-life 2020-01-01) **breaking change**
-- Drop Python 3.4 support (end-of-life 2019-03-18) **breaking change**
+- Drop Python 2.7 support (end-of-life 2020-01-01) |breaking-change|
+- Drop Python 3.4 support (end-of-life 2019-03-18) |breaking-change|
 
 
 2.3 (2019-03-21)
@@ -82,3 +88,10 @@ ChangeLog
 ------------------
 
 * First public version.
+
+
+.. role:: raw-html(raw)
+
+.. |breaking-change| raw:: html
+
+    <span style="background-color: #ffffbc; padding: 0.3em; font-weight: bold;">breaking change</span>
