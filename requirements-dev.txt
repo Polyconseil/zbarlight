@@ -1,3 +1,5 @@
+-e .
+
 # Installation
 setuptools>=30.3
 
@@ -20,7 +22,6 @@ flake8-mutable
 pep8-naming
 pytest
 readme-renderer
-tox
 vulture
 
 # Release
