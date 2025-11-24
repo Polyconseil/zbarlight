@@ -3,6 +3,7 @@ import warnings
 import pkg_resources
 from PIL import Image
 
+from . import compat
 from ._zbarlight import Symbologies
 from ._zbarlight import zbar_code_scanner
 
@@ -65,7 +66,7 @@ def scan_codes(code_types, image):
         raise UnknownSymbologieError('Unknown Symbologies: %s' % bad_code_types)
 
     # Convert the image to be used by c-extension
-    if not Image.isImageType(image):
+    if not compat.is_image(image):
         raise RuntimeError('Bad or unknown image format')
     converted_image = image.convert('L')  # Convert image to gray scale (8 bits per pixel).
     raw = converted_image.tobytes()  # Get image data.

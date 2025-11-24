@@ -1,10 +1,10 @@
 ChangeLog
 =========
 
-3.1 (unreleased)
+4.0 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Fix support of PIL (Pillow) 12.
 
 
 3.0 (2020-01-02)
