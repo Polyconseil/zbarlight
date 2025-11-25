@@ -9,9 +9,9 @@ docs:
 	sphinx-build -W -n -b html docs ./build/sphinx/html
 
 quality:
+	pylint --reports=no --score=no setup.py src tests
 	python setup.py check --strict --metadata --restructuredtext
 	check-manifest
-	flake8 src tests setup.py
 
 Quality:  # not used in tests
 	vulture --exclude=build/ src tests setup.py

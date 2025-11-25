@@ -4,8 +4,11 @@ import warnings
 from PIL import Image
 
 from . import compat
-from ._zbarlight import Symbologies
-from ._zbarlight import zbar_code_scanner
+# FIXME: pylint is capable of reading .pyi stub files, which we'll
+# create when we set up a type checker. Remove the following pragmas
+# once it's done.
+from ._zbarlight import Symbologies  # pylint: disable=no-name-in-module
+from ._zbarlight import zbar_code_scanner  # pylint: disable=no-name-in-module
 
 __version__ = importlib.metadata.version('zbarlight')
 __ALL__ = [
