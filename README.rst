@@ -17,7 +17,7 @@ On Debian
 .. code-block:: console
 
     $ apt-get install libzbar0 libzbar-dev
-    $ pip install zbarlight  # you can also use setuptools directly
+    $ pip install zbarlight
 
 On Mac OS X
 ~~~~~~~~~~~
