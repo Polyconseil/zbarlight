@@ -3,7 +3,7 @@
 # Documentation
 docutils
 pygments
-Sphinx>=1.5.1
+Sphinx>=8.1
 sphinx_rtd_theme
 
 # Tests and Quality

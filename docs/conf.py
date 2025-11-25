@@ -1,14 +1,6 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import importlib.metadata
 import os
 import sys
-
-import sphinx_rtd_theme
 
 
 class _Zbarlight(object):
@@ -51,5 +43,4 @@ master_doc = 'index'
 
 pygments_style = 'sphinx'
 html_theme = 'sphinx_rtd_theme'
-html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 html_static_path = []
