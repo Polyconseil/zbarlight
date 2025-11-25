@@ -13,6 +13,7 @@ quality:
 	pylint --reports=no --score=no setup.py src tests
 	python setup.py check --strict --metadata --restructuredtext
 	check-manifest
+	python setup.py sdist >/dev/null 2>&1 && twine check dist/*
 
 Quality:  # not used in tests
 	vulture --exclude=build/ src tests setup.py

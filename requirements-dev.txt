@@ -10,7 +10,6 @@ sphinx_rtd_theme
 check-manifest
 pylint
 pytest
-readme-renderer
 vulture
 
 # Release
