@@ -1,7 +1,9 @@
 #!/usr/bin/python
-import sys
 import argparse
+import sys
+
 from PIL import Image
+
 import zbarlight
 
 
