@@ -1,13 +1,13 @@
+import importlib.metadata
 import warnings
 
-import pkg_resources
 from PIL import Image
 
 from . import compat
 from ._zbarlight import Symbologies
 from ._zbarlight import zbar_code_scanner
 
-__version__ = pkg_resources.get_distribution('zbarlight').version
+__version__ = importlib.metadata.version('zbarlight')
 __ALL__ = [
     'Symbologies',
     'UnknownSymbologieError',

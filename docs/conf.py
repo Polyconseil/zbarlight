@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, division, print_function, unicode_literals
+import importlib.metadata
 import os
 import sys
 
-import pkg_resources
 import sphinx_rtd_theme
 
 
@@ -32,7 +32,7 @@ _Zbarlight.monkey_patch()
 project = u'zbarlight'
 copyright = u'2014, Polyconseil'
 
-version = pkg_resources.get_distribution('zbarlight').version
+version = importlib.metadata.version('zbarlight')
 release = version
 
 extensions = ['sphinx.ext.intersphinx', 'sphinx.ext.autodoc', 'sphinx.ext.napoleon']
