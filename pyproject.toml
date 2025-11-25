@@ -1,3 +1,14 @@
+[tool.mypy]
+show_error_codes = true
+strict = true
+strict_equality_for_none = true
+warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+# Don't force us to type test functions, it's boring and useless.
+disallow_untyped_defs = false
+
 
 [tool.pylint.MASTER]
 load-plugins = []

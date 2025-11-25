@@ -1,15 +1,11 @@
 import importlib.metadata
+import typing
 import warnings
 
 from PIL import Image
 
-from . import compat
-
-# FIXME: pylint is capable of reading .pyi stub files, which we'll
-# create when we set up a type checker. Remove the following pragmas
-# once it's done.
-from ._zbarlight import Symbologies  # pylint: disable=no-name-in-module
-from ._zbarlight import zbar_code_scanner  # pylint: disable=no-name-in-module
+from ._zbarlight import Symbologies
+from ._zbarlight import zbar_code_scanner
 
 __version__ = importlib.metadata.version("zbarlight")
 __ALL__ = [
@@ -29,7 +25,7 @@ class UnknownSymbologieError(Exception):
     pass
 
 
-def scan_codes(code_types, image):
+def scan_codes(code_types: str | list[str], image: Image.Image) -> list[bytes] | None:
     """
     Get *code_type* codes from a PIL Image.
 
@@ -69,9 +65,10 @@ def scan_codes(code_types, image):
             if code_type.upper() not in Symbologies
         ]
         raise UnknownSymbologieError("Unknown Symbologies: %s" % bad_code_types)
+    # mypy cannot narrow the type, despite our membership check above.
+    if not _has_only_integers(symbologies):
+        raise RuntimeError("should not happen")
 
-    if not compat.is_image(image):
-        raise RuntimeError("Bad or unknown image format")
     # Convert image to gray scale (8 bits per pixel).
     converted_image = image.convert("L")
     raw = converted_image.tobytes()
@@ -80,7 +77,9 @@ def scan_codes(code_types, image):
     return zbar_code_scanner(symbologies, raw, width, height)
 
 
-def copy_image_on_background(image, color=WHITE):
+def copy_image_on_background(
+    image: Image.Image, color: tuple[int, int, int] = WHITE
+) -> Image.Image:
     """
     Create a new image by copying the image on a *color* background.
 
@@ -95,3 +94,7 @@ def copy_image_on_background(image, color=WHITE):
     background = Image.new("RGB", image.size, color)
     background.paste(image, mask=image.split()[3])
     return background
+
+
+def _has_only_integers(values: list[int | None]) -> typing.TypeGuard[list[int]]:
+    return None not in values

@@ -6,7 +6,7 @@ from PIL import Image
 import zbarlight
 
 
-def get_image(name, ext="png"):
+def get_image(name: str, ext: str = "png") -> Image.Image:
     directory = pathlib.Path(__file__).parent
     file_path = directory / "fixtures" / "{}.{}".format(name, ext)
     with open(str(file_path), "rb") as image_file:
@@ -69,6 +69,7 @@ def compute_parametrize_id(value):
 def test_scan_codes(image_name, symbologies, excepted_codes):
     image = get_image(image_name)
     detected_codes = zbarlight.scan_codes(symbologies, image)
+    assert detected_codes is not None
     assert sorted(detected_codes) == sorted(excepted_codes)
 
 

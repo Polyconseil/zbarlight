@@ -1,13 +1,12 @@
 #!/usr/bin/python
 import argparse
-import sys
 
 from PIL import Image
 
 import zbarlight
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("image", help="input image")
     args = parser.parse_args()

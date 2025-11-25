@@ -11,7 +11,8 @@ docs:
 quality:
 	black --check .
 	isort --check-only --diff .
-	pylint --reports=no --score=no setup.py src tests
+	mypy run.py src tests
+	pylint --reports=no --score=no setup.py run.py src tests
 	python setup.py check --strict --metadata --restructuredtext
 	check-manifest
 	python setup.py sdist >/dev/null 2>&1 && twine check dist/*
