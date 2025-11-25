@@ -9,6 +9,7 @@ docs:
 	sphinx-build -W -n -b html docs ./build/sphinx/html
 
 quality:
+	black --check .
 	isort --check-only --diff .
 	pylint --reports=no --score=no setup.py src tests
 	python setup.py check --strict --metadata --restructuredtext

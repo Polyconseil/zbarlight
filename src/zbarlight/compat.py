@@ -2,6 +2,7 @@
 # `zbarlight.scan_codes()`.
 try:
     from PIL import Image
+
     is_image = Image.isImageType
 except AttributeError:
     # Image.isImageType has been removed from PIL 12.0

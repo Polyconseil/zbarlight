@@ -4,20 +4,21 @@ import warnings
 from PIL import Image
 
 from . import compat
+
 # FIXME: pylint is capable of reading .pyi stub files, which we'll
 # create when we set up a type checker. Remove the following pragmas
 # once it's done.
 from ._zbarlight import Symbologies  # pylint: disable=no-name-in-module
 from ._zbarlight import zbar_code_scanner  # pylint: disable=no-name-in-module
 
-__version__ = importlib.metadata.version('zbarlight')
+__version__ = importlib.metadata.version("zbarlight")
 __ALL__ = [
-    'Symbologies',
-    'UnknownSymbologieError',
-    'scan_codes',
-    'copy_image_on_background',
-    'BLACK',
-    'WHITE',
+    "Symbologies",
+    "UnknownSymbologieError",
+    "scan_codes",
+    "copy_image_on_background",
+    "BLACK",
+    "WHITE",
 ]
 
 WHITE = (255, 255, 255)
@@ -53,27 +54,28 @@ def scan_codes(code_types, image):
     if isinstance(code_types, str):
         code_types = [code_types]
         warnings.warn(
-            'Using a str for code_types is deprecated, please use a list of str instead',
+            "Using a str for code_types is deprecated, please use a list of str instead",
             DeprecationWarning,
         )
 
     # Translate symbologies
-    symbologies = [
-        Symbologies.get(code_type.upper())
-        for code_type in set(code_types)
-    ]
+    symbologies = [Symbologies.get(code_type.upper()) for code_type in set(code_types)]
 
     # Check that all symbologies are known
     if None in symbologies:
-        bad_code_types = [code_type for code_type in code_types if code_type.upper() not in Symbologies]
-        raise UnknownSymbologieError('Unknown Symbologies: %s' % bad_code_types)
+        bad_code_types = [
+            code_type
+            for code_type in code_types
+            if code_type.upper() not in Symbologies
+        ]
+        raise UnknownSymbologieError("Unknown Symbologies: %s" % bad_code_types)
 
-    # Convert the image to be used by c-extension
     if not compat.is_image(image):
-        raise RuntimeError('Bad or unknown image format')
-    converted_image = image.convert('L')  # Convert image to gray scale (8 bits per pixel).
-    raw = converted_image.tobytes()  # Get image data.
-    width, height = converted_image.size  # Get image size.
+        raise RuntimeError("Bad or unknown image format")
+    # Convert image to gray scale (8 bits per pixel).
+    converted_image = image.convert("L")
+    raw = converted_image.tobytes()
+    width, height = converted_image.size
 
     return zbar_code_scanner(symbologies, raw, width, height)
 
