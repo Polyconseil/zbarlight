@@ -15,5 +15,5 @@ pytest
 vulture
 
 # Release
-zest.releaser[recommended]
+zest.releaser
 polydev-github
