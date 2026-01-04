@@ -1,3 +1,46 @@
+[project]
+name = "zbarlight"
+version = "4.0.dev0"
+requires-python = ">= 3.10"
+dependencies = [
+  "Pillow",
+]
+authors = [
+  { name = "Polyconseil", email = "opensource+zbarlight@polyconseil.fr" },
+]
+readme = "README.rst"
+description = "A simple zbar wrapper"
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
+keywords = ["zbar", "QR code reader"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: C",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Scientific/Engineering :: Image Recognition",
+]
+
+[project.urls]
+Homepage = "https://github.com/Polyconseil/zbarlight"
+Documentation = "https://zbarlight.readthedocs.io"
+Repository = "https://github.com/Polyconseil/zbarlight"
+Issues = "https://github.com/Polyconseil/zbarlight"
+Changelog = "https://github.com/Polyconseil/zbarlight/blob/master/Changelog.rst"
+
+
+[tool.isort]
+force_single_line = true
+line_length = 120
+multi_line_output = 3 # vertical hanging indent
+known_first_party = "zbarlight"
+
+
 [tool.mypy]
 show_error_codes = true
 strict = true
