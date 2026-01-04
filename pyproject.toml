@@ -92,3 +92,10 @@ disable = [
     "unused-argument",
     "wrong-import-order",
 ]
+
+
+[[tool.setuptools.ext-modules]]
+name = "zbarlight._zbarlight"
+sources = ["src/zbarlight/_zbarlight.c"]
+extra-compile-args = ["-std=c99"]
+libraries= ["zbar"]

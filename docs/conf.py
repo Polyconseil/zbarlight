@@ -1,30 +1,4 @@
 import importlib.metadata
-import os
-import sys
-
-
-class _Zbarlight(object):
-    """
-    Fake zbarlight C extension
-
-    Should be updated when C extension change.
-    """
-
-    def zbar_code_scanner(self, *args):
-        pass
-
-    def version(self):
-        pass
-
-    @classmethod
-    def monkey_patch(cls):
-        """Monkey path zbarlight C extension on Read The Docs"""
-        on_read_the_docs = os.environ.get("READTHEDOCS", False)
-        if on_read_the_docs:
-            sys.modules["zbarlight._zbarlight"] = cls
-
-
-_Zbarlight.monkey_patch()
 
 project = "zbarlight"
 copyright = "2014, Polyconseil"
