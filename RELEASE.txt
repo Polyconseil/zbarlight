@@ -1,0 +1,17 @@
+Release is done through `zest.releaser` and a GitHub CI job:
+
+1. Make sure that your `master` branch is up-to-date:
+
+     $ git checkout master
+     $ git reset origin/master --hard
+     $ make clean
+
+2. Run `zest.releaser`:
+
+     $ fullrelease
+
+   It will update the version number, push a Git tag and update the
+   version number again for the next release.
+
+3. Wait for the GitHub CI job to (automatically) run and publish the
+   release on PyPI.

@@ -3,5 +3,5 @@ prune docs
 prune tests
 global-exclude *.py[cod] __pycache__ *.so
 
-include Changelog.rst LICENSE README.rst
+include Changelog.rst LICENSE README.rst RELEASE.txt
 exclude Makefile requirements-dev.txt run.py .readthedocs.yaml

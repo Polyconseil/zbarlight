@@ -99,3 +99,8 @@ name = "zbarlight._zbarlight"
 sources = ["src/zbarlight/_zbarlight.c"]
 extra-compile-args = ["-std=c99"]
 libraries= ["zbar"]
+
+
+[tool.zest-releaser]
+# Do not let zest.releaser upload to PyPI. It's done by a GitHub CI job.
+upload-pypi = false
