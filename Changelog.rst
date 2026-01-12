@@ -1,7 +1,7 @@
 ChangeLog
 =========
 
-4.0 (unreleased)
+4.0 (2026-01-12)
 ----------------
 
 **Important:** This release drops compatibility with old, unsupported

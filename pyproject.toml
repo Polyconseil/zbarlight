@@ -1,6 +1,6 @@
 [project]
 name = "zbarlight"
-version = "4.0.dev0"
+version = "4.0"
 requires-python = ">= 3.10"
 dependencies = [
   "Pillow",
