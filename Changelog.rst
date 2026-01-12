@@ -1,6 +1,12 @@
 ChangeLog
 =========
 
+4.1 (unreleased)
+----------------
+
+- Nothing changed yet.
+
+
 4.0 (2026-01-12)
 ----------------
 
