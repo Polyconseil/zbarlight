@@ -7,7 +7,7 @@ ChangeLog
 - Nothing changed yet.
 
 
-4.0.0 (2026-01-12)
+4.0.0 (2026-02-02)
 ------------------
 
 **Important:** This release drops compatibility with old, unsupported
